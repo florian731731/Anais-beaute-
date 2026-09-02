@@ -1,0 +1,37 @@
+# Anaïs Beauté
+
+Anaïs Beauté est un institut de beauté situé à Pallud, près d'Albertville (Savoie). Anaïs propose des soins du visage, de l'épilation, de l'onglerie, des massages bien-être et des soins du regard.
+
+## Informations pratiques
+- Adresse : 850 route de la Biolle, 73200 Pallud
+- Téléphone : 06 95 65 55 60
+- Horaires : Lundi-Samedi 8h-19h30, fermé le dimanche
+- Note Google : 5,0/5 (53 avis)
+
+## Pages principales
+- Accueil: https://www.anaisbeaute-albertville.fr/
+- Esthéticienne à Albertville: https://www.anaisbeaute-albertville.fr/estheticienne-albertville/
+- Prestations: https://www.anaisbeaute-albertville.fr/prestations/
+- Tarifs: https://www.anaisbeaute-albertville.fr/tarifs/
+- Avis clients: https://www.anaisbeaute-albertville.fr/avis/
+- Galerie: https://www.anaisbeaute-albertville.fr/galerie/
+- À propos: https://www.anaisbeaute-albertville.fr/a-propos/
+- Contact: https://www.anaisbeaute-albertville.fr/contact/
+
+## Prestations et pages dédiées
+- Soins du visage: https://www.anaisbeaute-albertville.fr/soins-visage/
+  - Soin visage acné: https://www.anaisbeaute-albertville.fr/soin-visage-acne-albertville/
+  - Soin visage peau sèche: https://www.anaisbeaute-albertville.fr/soin-visage-peau-seche-albertville/
+- Épilation: https://www.anaisbeaute-albertville.fr/epilation/
+  - Épilation maillot: https://www.anaisbeaute-albertville.fr/epilation-maillot-albertville/
+  - Épilation sourcils: https://www.anaisbeaute-albertville.fr/epilation-sourcils-albertville/
+- Onglerie: https://www.anaisbeaute-albertville.fr/onglerie/
+- Massage bien-être: https://www.anaisbeaute-albertville.fr/massage/
+  - Massage californien: https://www.anaisbeaute-albertville.fr/massage-californien-albertville/
+  - Massage relaxant: https://www.anaisbeaute-albertville.fr/massage-relaxant-albertville/
+- Beauté du regard: https://www.anaisbeaute-albertville.fr/regard/
+  - Rehaussement de cils: https://www.anaisbeaute-albertville.fr/rehaussement-cils-albertville/
+- Institut de beauté à Pallud: https://www.anaisbeaute-albertville.fr/institut-beaute-pallud-albertville/
+
+## Zone desservie
+Albertville, Pallud, Gilly-sur-Isère, Frontenex, Ugine, Mercury, Grignon
