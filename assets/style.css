@@ -627,3 +627,10 @@ h2{letter-spacing:-.01em}
 @media(max-width:650px){
   .hero-img{height:210px!important}
 }
+
+/* Réseaux sociaux footer */
+.footer .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.footer-social{display:flex;gap:12px}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--soft);color:var(--wine);transition:background .2s ease,color .2s ease}
+.footer-social a:hover{background:var(--wine);color:#fff}
+.footer-social svg{width:17px;height:17px;fill:currentColor}
