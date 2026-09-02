@@ -623,7 +623,7 @@ h2{letter-spacing:-.01em}
    toute la largeur et devient énorme / mal cadrée. On lui garde une hauteur
    maîtrisée et un cadrage centré, comme conçu à l'origine. */
 .hero-img{height:255px!important;min-height:0!important;background:#F5EDE3}
-.hero-img img{height:100%!important;object-fit:cover!important;object-position:center 30%!important}
+.hero-img img{height:100%!important;object-fit:cover!important;object-position:center 60%!important}
 @media(max-width:650px){
   .hero-img{height:210px!important}
 }
