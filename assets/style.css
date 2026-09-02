@@ -616,3 +616,14 @@ h2{letter-spacing:-.01em}
   *{transition-duration:.001ms!important; animation-duration:.001ms!important; scroll-behavior:auto!important}
   .reveal{opacity:1!important; transform:none!important}
 }
+
+/* Correction : l'illustration du hero (dessin stylisé, pas une photo) ne doit
+   pas suivre la règle "photos non recadrées" ci-dessus — sinon, dès que la
+   mise en page passe en une colonne (tablette/mobile), l'image s'étire sur
+   toute la largeur et devient énorme / mal cadrée. On lui garde une hauteur
+   maîtrisée et un cadrage centré, comme conçu à l'origine. */
+.hero-img{height:255px!important;min-height:0!important;background:#F5EDE3}
+.hero-img img{height:100%!important;object-fit:cover!important;object-position:center 30%!important}
+@media(max-width:650px){
+  .hero-img{height:210px!important}
+}
