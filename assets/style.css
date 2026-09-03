@@ -641,3 +641,6 @@ h2{letter-spacing:-.01em}
 /* Page de remerciement après demande de rendez-vous */
 .merci-icon{width:72px;height:72px;border-radius:20px;margin:0 auto 8px;background:linear-gradient(135deg,var(--soft),#EDE0D3);display:grid;place-items:center;position:relative}
 .merci-icon:before{content:"";width:34px;height:34px;background-color:var(--wine);display:block;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E")}
+
+/* Placeholder des champs du formulaire en gris clair (ex: "Email (optionnel)") */
+.form input::placeholder,.form textarea::placeholder{color:#b3aaa1;opacity:1}
