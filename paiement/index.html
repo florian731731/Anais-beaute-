@@ -81,6 +81,10 @@
   <div class="gift-custom">
     <input type="number" id="gift-custom-input" min="5" max="1000" step="5" placeholder="Autre montant (en €)">
   </div>
+  <div class="ci-field" style="margin-top:18px">
+    <span>Petit mot pour la personne (optionnel)</span>
+    <input type="text" id="gift-message" maxlength="60" placeholder="Ex : Joyeux anniversaire !">
+  </div>
 </div>
 
 <div class="pay-panel" id="panel-services">
@@ -236,7 +240,10 @@
     if (!(amount >= 5 && customerInfoValid())) return;
     var customerName = document.getElementById('customer-name').value.trim();
     var customerEmail = document.getElementById('customer-email').value.trim();
-    var baseDescription = state.mode === 'gift' ? 'Bon cadeau' : getSelectedServicesLabel();
+    var giftMessage = document.getElementById('gift-message').value.trim();
+    var baseDescription = state.mode === 'gift'
+      ? ('Bon cadeau' + (giftMessage ? ': ' + giftMessage : ''))
+      : getSelectedServicesLabel();
     var description = (customerName + ' - ' + baseDescription).slice(0, 90);
     resetPayment();
     showMsg('Préparation du paiement…', 'info');
