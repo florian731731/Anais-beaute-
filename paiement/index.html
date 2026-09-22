@@ -46,6 +46,11 @@
 .pay-msg.err{background:#fbeaea;color:#a33;border:1px solid #f0caca}
 .pay-msg.ok{background:#eaf7ee;color:#2f7a45;border:1px solid #cdeeda}
 .pay-msg.info{background:var(--soft,#f6e9e4);color:inherit}
+.customer-info{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.ci-field{display:block;margin-bottom:14px}
+.ci-field span{display:block;font-weight:600;margin-bottom:6px;font-size:14px}
+.ci-field input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;box-sizing:border-box}
+.ci-field input:invalid:not(:placeholder-shown){border-color:#c77}
 </style>
 </head>
 <body>
@@ -131,6 +136,19 @@
 
 </div>
 
+<div class="customer-info">
+  <h3 style="margin-bottom:10px">Vos coordonnées</h3>
+  <p style="font-size:14px;color:var(--muted,#666);margin-bottom:14px">Nécessaires pour qu'Anaïs puisse identifier votre paiement.</p>
+  <label class="ci-field">
+    <span>Nom et prénom *</span>
+    <input type="text" id="customer-name" placeholder="Ex : Julie Martin" required>
+  </label>
+  <label class="ci-field">
+    <span>Email *</span>
+    <input type="email" id="customer-email" placeholder="Ex : julie@email.com" required>
+  </label>
+</div>
+
 <div class="total-bar">
   <span>Total : <strong id="total-amount">0,00€</strong></span>
   <button class="rdv" id="pay-btn" disabled>Payer maintenant</button>
@@ -191,10 +209,18 @@
   function currentAmount(){
     return state.mode === 'gift' ? state.giftAmount : getServicesTotal();
   }
+  function customerInfoValid(){
+    var name = document.getElementById('customer-name').value.trim();
+    var email = document.getElementById('customer-email').value.trim();
+    return name.length > 1 && /\S+@\S+\.\S+/.test(email);
+  }
+  document.getElementById('customer-name').addEventListener('input', updateTotal);
+  document.getElementById('customer-email').addEventListener('input', updateTotal);
+
   function updateTotal(){
     var amount = currentAmount();
     document.getElementById('total-amount').textContent = amount.toFixed(2).replace('.', ',') + '€';
-    document.getElementById('pay-btn').disabled = !(amount >= 5);
+    document.getElementById('pay-btn').disabled = !(amount >= 5 && customerInfoValid());
   }
   function showMsg(text, type){
     document.getElementById('pay-msg-area').innerHTML = '<div class="pay-msg ' + type + '">' + text + '</div>';
@@ -207,8 +233,11 @@
 
   document.getElementById('pay-btn').addEventListener('click', function(){
     var amount = currentAmount();
-    if (!(amount >= 5)) return;
-    var description = state.mode === 'gift' ? 'Bon cadeau Anaïs Beauté' : getSelectedServicesLabel();
+    if (!(amount >= 5 && customerInfoValid())) return;
+    var customerName = document.getElementById('customer-name').value.trim();
+    var customerEmail = document.getElementById('customer-email').value.trim();
+    var baseDescription = state.mode === 'gift' ? 'Bon cadeau' : getSelectedServicesLabel();
+    var description = (customerName + ' - ' + baseDescription).slice(0, 90);
     resetPayment();
     showMsg('Préparation du paiement…', 'info');
     fetch('/.netlify/functions/create-checkout', {
@@ -228,6 +257,7 @@
         checkoutId: res.data.checkoutId,
         locale: 'fr-FR',
         country: 'FR',
+        email: customerEmail,
         onResponse: function(type, body){
           if (type === 'success') {
             showMsg('✓ Paiement réussi ! Merci, à très bientôt.', 'ok');
