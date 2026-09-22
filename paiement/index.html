@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payer en ligne | Anaïs Beauté Albertville</title>
+<meta name="description" content="Réglez une prestation à l'avance ou offrez un bon cadeau Anaïs Beauté, en ligne et en toute sécurité.">
+<link rel="canonical" href="https://www.anaisbeaute-albertville.fr/paiement/">
+<link rel="icon" href="/assets/favicons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/favicon-180x180.png">
+<meta name="robots" content="noindex,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Anaïs Beauté">
+<meta property="og:title" content="Payer en ligne | Anaïs Beauté Albertville">
+<meta property="og:description" content="Réglez une prestation à l'avance ou offrez un bon cadeau Anaïs Beauté, en ligne et en toute sécurité.">
+<meta property="og:url" content="https://www.anaisbeaute-albertville.fr/paiement/">
+<meta property="og:image" content="https://www.anaisbeaute-albertville.fr/images/salon-esthetique-albertville.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#bd6675">
+<script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
+<style>
+.pay-wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+.pay-tabs{display:flex;gap:10px;margin:24px 0;border-bottom:1px solid var(--line)}
+.pay-tab{flex:1;text-align:center;padding:14px 10px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-size:16px;font-family:inherit}
+.pay-tab.active{color:var(--rose,#bd6675);border-bottom-color:var(--rose,#bd6675)}
+.pay-panel{display:none}
+.pay-panel.active{display:block}
+.gift-amounts{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.gift-amount-btn{flex:1;min-width:90px;padding:14px;border:2px solid var(--line);border-radius:12px;background:white;font-weight:700;font-size:16px;cursor:pointer;color:inherit;transition:.25s cubic-bezier(.22,1,.36,1)}
+.gift-amount-btn.selected,.gift-amount-btn:hover{border-color:var(--rose,#bd6675);color:var(--rose,#bd6675)}
+.gift-custom{margin-top:14px}
+.gift-custom input{width:100%;padding:14px;border:1px solid var(--line);border-radius:10px;font-size:16px;font-family:inherit}
+.svc-line{display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:1px solid var(--cream2,#fbf3ee)}
+.svc-line:last-of-type{border-bottom:none}
+.svc-line input{width:18px;height:18px;accent-color:var(--rose,#bd6675);flex-shrink:0}
+.svc-line span{flex:1}
+.total-bar{position:sticky;bottom:0;background:var(--cream,#fffaf7);border-top:1px solid var(--line);padding:16px 20px;margin:30px -20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;border-radius:14px 14px 0 0}
+.total-bar strong{font-size:20px;color:var(--rose,#bd6675)}
+#pay-btn{white-space:nowrap}
+#sumup-card{margin-top:24px}
+.pay-msg{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:14px}
+.pay-msg.err{background:#fbeaea;color:#a33;border:1px solid #f0caca}
+.pay-msg.ok{background:#eaf7ee;color:#2f7a45;border:1px solid #cdeeda}
+.pay-msg.info{background:var(--soft,#f6e9e4);color:inherit}
+</style>
+</head>
+<body>
+<div class="topbar"><span class="topbar-tag">Institut de beauté à Albertville – Soins personnalisés<span class="topbar-sep"> · </span></span><a class="topbar-phone" href="tel:+33695655560">06 95 65 55 60</a></div>
+<header class="header"><div class="container nav">
+<a class="logo" href="/"><img alt="Anaïs Beauté" decoding="async" src="/assets/logo.svg"/></a>
+<button class="mobile">Menu</button>
+<ul class="menu"><li><a href="/">Accueil</a></li><li><a href="/prestations/">Prestations</a></li><li><a href="/a-propos/">À propos</a></li><li><a href="/tarifs/">Tarifs</a></li><li><a class="active" href="/paiement/">Payer en ligne</a></li><li><a href="/avis/">Avis</a></li><li><a href="/galerie/">Galerie</a></li><li><a href="/contact/">Contact</a></li><li><a class="rdv" href="/contact/">▣ Prendre rendez-vous</a></li></ul>
+</div></header>
+
+<main><section class="main"><div class="container pay-wrap">
+<h1>Payer en ligne</h1>
+<p class="lead">Réglez une prestation à l'avance ou offrez un bon cadeau, directement ici, en toute sécurité (paiement traité par SumUp).</p>
+
+<div class="pay-tabs">
+  <button class="pay-tab active" data-tab="gift">Bon cadeau</button>
+  <button class="pay-tab" data-tab="services">Prestations</button>
+</div>
+
+<div class="pay-panel active" id="panel-gift">
+  <p>Choisissez un montant, ou entrez le montant de votre choix.</p>
+  <div class="gift-amounts">
+    <button class="gift-amount-btn" data-amount="30">30€</button>
+    <button class="gift-amount-btn" data-amount="50">50€</button>
+    <button class="gift-amount-btn" data-amount="80">80€</button>
+    <button class="gift-amount-btn" data-amount="120">120€</button>
+  </div>
+  <div class="gift-custom">
+    <input type="number" id="gift-custom-input" min="5" max="1000" step="5" placeholder="Autre montant (en €)">
+  </div>
+</div>
+
+<div class="pay-panel" id="panel-services">
+  <p>Cochez les prestations souhaitées : le total se calcule automatiquement.</p>
+  <div class="tarif-card"><h3>Soins visage</h3><label class="svc-line"><input type="checkbox" class="svc-check" data-name="Soins visage - Les soins BIO-ACTIFS" data-price="60.0"><span>Les soins BIO-ACTIFS</span><strong>60.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Soins visage - Les soins BIO-EXPERTS" data-price="70.0"><span>Les soins BIO-EXPERTS</span><strong>70.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Soins visage - Soin sublime &amp; ridoki" data-price="80.0"><span>Soin sublime &amp; ridoki</span><strong>80.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Soins visage - Rituel pureté active" data-price="65.0"><span>Rituel pureté active</span><strong>65.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Soins visage - Rituel du regard" data-price="30.0"><span>Rituel du regard</span><strong>30.00€</strong></label>
+</div>
+<div class="tarif-card"><h3>Massages</h3><label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Californien 30 min" data-price="30.0"><span>Californien 30 min</span><strong>30.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Californien 45 min" data-price="45.0"><span>Californien 45 min</span><strong>45.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Californien 60 min" data-price="60.0"><span>Californien 60 min</span><strong>60.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Californien 1h15" data-price="75.0"><span>Californien 1h15</span><strong>75.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Abhyanga" data-price="65.0"><span>Abhyanga</span><strong>65.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Suédois" data-price="70.0"><span>Suédois</span><strong>70.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Pierres chaudes" data-price="80.0"><span>Pierres chaudes</span><strong>80.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Pierres chaudes" data-price="89.0"><span>Pierres chaudes</span><strong>89.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Massages - Option bougie" data-price="5.0"><span>Option bougie</span><strong>5.00€</strong></label>
+</div>
+<div class="tarif-card"><h3>Épilations – Femme</h3><label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Sourcils" data-price="10.0"><span>Sourcils</span><strong>10.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Lèvres" data-price="5.0"><span>Lèvres</span><strong>5.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Sourcils + Lèvres" data-price="13.0"><span>Sourcils + Lèvres</span><strong>13.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Menton" data-price="5.0"><span>Menton</span><strong>5.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Aisselles" data-price="10.0"><span>Aisselles</span><strong>10.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - ½ Bras" data-price="7.5"><span>½ Bras</span><strong>7.50€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Bras" data-price="15.0"><span>Bras</span><strong>15.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Maillot" data-price="12.0"><span>Maillot</span><strong>12.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Maillot semi intégral" data-price="20.0"><span>Maillot semi intégral</span><strong>20.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Maillot intégral" data-price="24.0"><span>Maillot intégral</span><strong>24.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - ½ Jambes" data-price="15.0"><span>½ Jambes</span><strong>15.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - ¾ Jambes" data-price="17.0"><span>¾ Jambes</span><strong>17.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Femme - Jambes complètes" data-price="24.0"><span>Jambes complètes</span><strong>24.00€</strong></label>
+</div>
+<div class="tarif-card"><h3>Épilations – Homme</h3><label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Sourcils" data-price="10.0"><span>Sourcils</span><strong>10.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Nez" data-price="5.0"><span>Nez</span><strong>5.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Oreilles" data-price="5.0"><span>Oreilles</span><strong>5.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Aisselles" data-price="10.0"><span>Aisselles</span><strong>10.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Épaules + dos" data-price="25.0"><span>Épaules + dos</span><strong>25.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Torse + ventre" data-price="25.0"><span>Torse + ventre</span><strong>25.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Bras + épaules" data-price="20.0"><span>Bras + épaules</span><strong>20.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Épilations – Homme - Jambes complètes" data-price="30.0"><span>Jambes complètes</span><strong>30.00€</strong></label>
+</div>
+<div class="tarif-card"><h3>Beauté du regard / mains / pieds</h3><label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Teinture cils" data-price="10.0"><span>Teinture cils</span><strong>10.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Teinture sourcils" data-price="7.0"><span>Teinture sourcils</span><strong>7.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Rehaussement de cils" data-price="50.0"><span>Rehaussement de cils</span><strong>50.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Manucure" data-price="25.0"><span>Manucure</span><strong>25.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Manucure + pose de vernis" data-price="30.0"><span>Manucure + pose de vernis</span><strong>30.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Beauté des pieds" data-price="25.0"><span>Beauté des pieds</span><strong>25.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Beauté des pieds + vernis" data-price="30.0"><span>Beauté des pieds + vernis</span><strong>30.00€</strong></label>
+<label class="svc-line"><input type="checkbox" class="svc-check" data-name="Beauté du regard / mains / pieds - Calluspeeling (callosités)" data-price="35.0"><span>Calluspeeling (callosités)</span><strong>35.00€</strong></label>
+</div>
+
+</div>
+
+<div class="total-bar">
+  <span>Total : <strong id="total-amount">0,00€</strong></span>
+  <button class="rdv" id="pay-btn" disabled>Payer maintenant</button>
+</div>
+
+<div id="pay-msg-area"></div>
+<div id="sumup-card"></div>
+
+</div></section></main>
+
+<footer class="footer"><div class="container"><span>© Anaïs Beauté — 850 route de la Biolle, 73200 Pallud — Tél : +33 6 95 65 55 60</span><div class="footer-social"><a href="https://www.instagram.com/anais.beaute73" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3.05.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.07.06 1.42.06 4.12s-.01 3.05-.06 4.12c-.05 1.06-.22 1.79-.47 2.43-.26.66-.6 1.22-1.15 1.77-.55.55-1.11.9-1.77 1.15-.64.25-1.37.42-2.43.47-1.07.05-1.42.06-4.12.06s-3.05-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47-.66-.26-1.22-.6-1.77-1.15-.55-.55-.9-1.11-1.15-1.77-.25-.64-.42-1.37-.47-2.43C2.01 15.05 2 14.7 2 12s.01-3.05.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77.55-.55 1.11-.9 1.77-1.15.64-.25 1.37-.42 2.43-.47C8.95 2.01 9.3 2 12 2zm0 1.8c-2.65 0-2.97.01-4.02.06-.86.04-1.33.18-1.64.3-.41.16-.71.35-1.02.66-.31.31-.5.61-.66 1.02-.12.31-.26.78-.3 1.64C4.31 9.03 4.3 9.35 4.3 12s.01 2.97.06 4.02c.04.86.18 1.33.3 1.64.16.41.35.71.66 1.02.31.31.61.5 1.02.66.31.12.78.26 1.64.3 1.05.05 1.37.06 4.02.06s2.97-.01 4.02-.06c.86-.04 1.33-.18 1.64-.3.41-.16.71-.35 1.02-.66.31-.31.5-.61.66-1.02.12-.31.26-.78.3-1.64.05-1.05.06-1.37.06-4.02s-.01-2.97-.06-4.02c-.04-.86-.18-1.33-.3-1.64-.16-.41-.35-.71-.66-1.02-.31-.31-.61-.5-1.02-.66-.31-.12-.78-.26-1.64-.3C14.97 3.81 14.65 3.8 12 3.8zm0 3.05a5.15 5.15 0 1 1 0 10.3 5.15 5.15 0 0 1 0-10.3zm0 1.8a3.35 3.35 0 1 0 0 6.7 3.35 3.35 0 0 0 0-6.7zm5.35-2.02a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a><a href="https://www.facebook.com/anais.beaute73" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.6h2.55l.38-2.96h-2.93V8.56c0-.86.24-1.44 1.47-1.44h1.57V4.46A21 21 0 0 0 14.9 4.3c-2.36 0-3.97 1.44-3.97 4.08v2.06H8.36v2.96h2.57V21h2.57z"/></svg></a></div></div></footer>
+
+<script>
+(function(){
+  var state = { mode: 'gift', giftAmount: 0, cardWidget: null };
+
+  document.querySelectorAll('.pay-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.pay-tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.pay-panel').forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      state.mode = tab.dataset.tab;
+      resetPayment();
+      updateTotal();
+    });
+  });
+
+  document.querySelectorAll('.gift-amount-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.gift-amount-btn').forEach(function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      document.getElementById('gift-custom-input').value = '';
+      state.giftAmount = parseFloat(btn.dataset.amount);
+      updateTotal();
+    });
+  });
+  document.getElementById('gift-custom-input').addEventListener('input', function(e){
+    document.querySelectorAll('.gift-amount-btn').forEach(function(b){ b.classList.remove('selected'); });
+    state.giftAmount = parseFloat(e.target.value) || 0;
+    updateTotal();
+  });
+
+  document.querySelectorAll('.svc-check').forEach(function(cb){
+    cb.addEventListener('change', updateTotal);
+  });
+
+  function getServicesTotal(){
+    var total = 0;
+    document.querySelectorAll('.svc-check:checked').forEach(function(cb){ total += parseFloat(cb.dataset.price); });
+    return total;
+  }
+  function getSelectedServicesLabel(){
+    var names = [];
+    document.querySelectorAll('.svc-check:checked').forEach(function(cb){ names.push(cb.dataset.name); });
+    return names.join(', ').slice(0, 90) || 'Prestations Anaïs Beauté';
+  }
+  function currentAmount(){
+    return state.mode === 'gift' ? state.giftAmount : getServicesTotal();
+  }
+  function updateTotal(){
+    var amount = currentAmount();
+    document.getElementById('total-amount').textContent = amount.toFixed(2).replace('.', ',') + '€';
+    document.getElementById('pay-btn').disabled = !(amount >= 5);
+  }
+  function showMsg(text, type){
+    document.getElementById('pay-msg-area').innerHTML = '<div class="pay-msg ' + type + '">' + text + '</div>';
+  }
+  function resetPayment(){
+    document.getElementById('pay-msg-area').innerHTML = '';
+    document.getElementById('sumup-card').innerHTML = '';
+    if (state.cardWidget) { try { state.cardWidget.unmount(); } catch(e){} state.cardWidget = null; }
+  }
+
+  document.getElementById('pay-btn').addEventListener('click', function(){
+    var amount = currentAmount();
+    if (!(amount >= 5)) return;
+    var description = state.mode === 'gift' ? 'Bon cadeau Anaïs Beauté' : getSelectedServicesLabel();
+    resetPayment();
+    showMsg('Préparation du paiement…', 'info');
+    fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: amount, description: description })
+    })
+    .then(function(r){ return r.json().then(function(data){ return { ok: r.ok, data: data }; }); })
+    .then(function(res){
+      if (!res.ok) {
+        showMsg('Impossible de démarrer le paiement : ' + (res.data.error || 'erreur inconnue') + '.', 'err');
+        return;
+      }
+      document.getElementById('pay-msg-area').innerHTML = '';
+      state.cardWidget = SumUpCard.mount({
+        id: 'sumup-card',
+        checkoutId: res.data.checkoutId,
+        onResponse: function(type, body){
+          if (type === 'success') {
+            showMsg('✓ Paiement réussi ! Merci, à très bientôt.', 'ok');
+            document.getElementById('sumup-card').innerHTML = '';
+          } else if (type === 'fail') {
+            showMsg('Le paiement n\'a pas abouti (annulé ou session expirée). Vous pouvez réessayer.', 'err');
+          } else if (type === 'error') {
+            showMsg('Une erreur est survenue. Vous pouvez réessayer, ou nous contacter directement.', 'err');
+          }
+        }
+      });
+    })
+    .catch(function(){
+      showMsg('Impossible de contacter le serveur de paiement pour le moment. Réessayez dans un instant.', 'err');
+    });
+  });
+
+  updateTotal();
+})();
+</script>
+</body>
+</html>
