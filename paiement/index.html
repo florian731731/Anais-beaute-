@@ -46,6 +46,7 @@
 .pay-msg.err{background:#fbeaea;color:#a33;border:1px solid #f0caca}
 .pay-msg.ok{background:#eaf7ee;color:#2f7a45;border:1px solid #cdeeda}
 .pay-msg.info{background:var(--soft,#f6e9e4);color:inherit}
+.pay-hint{font-size:13px;color:var(--muted,#666);margin-top:8px;text-align:right}
 .customer-info{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
 .ci-field{display:block;margin-bottom:14px}
 .ci-field span{display:block;font-weight:600;margin-bottom:6px;font-size:14px}
@@ -157,6 +158,7 @@
   <span>Total : <strong id="total-amount">0,00€</strong></span>
   <button class="rdv" id="pay-btn" disabled>Payer maintenant</button>
 </div>
+<p class="pay-hint" id="pay-hint"></p>
 
 <div id="pay-msg-area"></div>
 <div id="sumup-card"></div>
@@ -224,7 +226,18 @@
   function updateTotal(){
     var amount = currentAmount();
     document.getElementById('total-amount').textContent = amount.toFixed(2).replace('.', ',') + '€';
-    document.getElementById('pay-btn').disabled = !(amount >= 5 && customerInfoValid());
+    var amountOk = amount >= 5;
+    var infoOk = customerInfoValid();
+    document.getElementById('pay-btn').disabled = !(amountOk && infoOk);
+    var hint = '';
+    if (!amountOk && !infoOk) {
+      hint = state.mode === 'gift' ? 'Choisissez un montant et renseignez vos coordonnées.' : 'Cochez au moins une prestation et renseignez vos coordonnées.';
+    } else if (!amountOk) {
+      hint = state.mode === 'gift' ? 'Choisissez un montant (5€ minimum).' : 'Cochez au moins une prestation.';
+    } else if (!infoOk) {
+      hint = 'Renseignez votre nom et un email valide ci-dessous.';
+    }
+    document.getElementById('pay-hint').textContent = hint;
   }
   function showMsg(text, type){
     document.getElementById('pay-msg-area').innerHTML = '<div class="pay-msg ' + type + '">' + text + '</div>';
