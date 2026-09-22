@@ -62,6 +62,7 @@ exports.handler = async (event) => {
         currency: "EUR",
         merchant_code: MERCHANT_CODE,
         description,
+        redirect_url: "https://www.anaisbeaute-albertville.fr/paiement/",
       }),
     });
 
