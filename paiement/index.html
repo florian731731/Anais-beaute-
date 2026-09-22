@@ -226,6 +226,8 @@
       state.cardWidget = SumUpCard.mount({
         id: 'sumup-card',
         checkoutId: res.data.checkoutId,
+        locale: 'fr-FR',
+        country: 'FR',
         onResponse: function(type, body){
           if (type === 'success') {
             showMsg('✓ Paiement réussi ! Merci, à très bientôt.', 'ok');
