@@ -61,6 +61,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         from: "Anaïs Beauté <contact@anaisbeaute-albertville.fr>",
         to: [customerEmail],
+        reply_to: "anaiscattellin@gmail.com",
         subject: `${title} — Anaïs Beauté (${amountStr})`,
         html,
       }),
