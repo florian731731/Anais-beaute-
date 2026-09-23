@@ -281,6 +281,18 @@
     });
   }
 
+  function sendReceipt(customerName, customerEmail, amount, mode, details){
+    fetch('/.netlify/functions/send-receipt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ customerName: customerName, customerEmail: customerEmail, amount: amount, mode: mode, details: details })
+    }).then(function(r){
+      console.log('[sendReceipt] statut réponse:', r.status);
+    }).catch(function(err){
+      console.log('[sendReceipt] échec envoi:', err);
+    });
+  }
+
   function buildDetails(mode, giftMessage){
     if (mode === 'gift') {
       return 'Bon cadeau' + (giftMessage ? '\nMot pour la personne : "' + giftMessage + '"' : '');
@@ -305,6 +317,7 @@
       .then(function(data){
         if (data.status === 'PAID') {
           notifyAnais(pending.customerName, pending.customerEmail, pending.amount, pending.mode, pending.details);
+          sendReceipt(pending.customerName, pending.customerEmail, pending.amount, pending.mode, pending.details);
           showMsg('✓ Paiement confirmé ! Merci, à très bientôt.', 'ok');
           localStorage.removeItem('pending-payment');
         } else if (data.status === 'FAILED') {
@@ -362,6 +375,7 @@
             showMsg('✓ Paiement réussi ! Merci, à très bientôt.', 'ok');
             document.getElementById('sumup-card').innerHTML = '';
             notifyAnais(customerName, customerEmail, amount, state.mode, orderDetails);
+            sendReceipt(customerName, customerEmail, amount, state.mode, orderDetails);
             localStorage.removeItem('pending-payment');
           } else if (type === 'fail') {
             showMsg('Le paiement n\'a pas abouti (annulé ou session expirée). Vous pouvez réessayer.', 'err');
