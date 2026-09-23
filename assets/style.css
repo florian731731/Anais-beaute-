@@ -652,3 +652,7 @@ h2{letter-spacing:-.01em}
 /* Bouton secondaire (contour) utilisé sur la page 404 */
 .btn-outline{display:inline-block;background:transparent;color:var(--wine);border:1.5px solid var(--wine);border-radius:999px;padding:12.5px 24.5px;font-weight:800;font-family:var(--sans);letter-spacing:.01em;white-space:nowrap;text-decoration:none;transition:background .2s ease,color .2s ease}
 .btn-outline:hover,.btn-outline:focus{background:var(--wine);color:#fff}
+
+.seo-rating{background:var(--soft,#F5ECE4);border-radius:10px;padding:12px 16px;color:var(--wine,#6B2A3B);font-weight:600;display:inline-block}
+.seo-rating a{color:var(--rose,#B15E6C);text-decoration:none;font-weight:800}
+.seo-rating a:hover{text-decoration:underline}
