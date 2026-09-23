@@ -264,13 +264,7 @@
     return lines.join('\n');
   }
 
-  function notifyAnais(customerName, customerEmail, amount, mode, giftMessage){
-    var details;
-    if (mode === 'gift') {
-      details = 'Bon cadeau de ' + amount.toFixed(2) + '€' + (giftMessage ? '\nMot pour la personne : "' + giftMessage + '"' : '');
-    } else {
-      details = 'Prestations réglées :\n' + getSelectedServicesDetailed();
-    }
+  function notifyAnais(customerName, customerEmail, amount, mode, details){
     var body = 'form-name=commande-payee'
       + '&client=' + encodeURIComponent(customerName)
       + '&email=' + encodeURIComponent(customerEmail)
@@ -286,6 +280,40 @@
       console.log('[notifyAnais] échec envoi:', err);
     });
   }
+
+  function buildDetails(mode, giftMessage){
+    if (mode === 'gift') {
+      return 'Bon cadeau' + (giftMessage ? '\nMot pour la personne : "' + giftMessage + '"' : '');
+    }
+    return 'Prestations réglées :\n' + getSelectedServicesDetailed();
+  }
+
+  // Vérifie, au chargement de la page, si un paiement était en attente
+  // (cas d'un retour après redirection 3D Secure / Apple Pay / Google Pay).
+  (function checkPendingPayment(){
+    var raw = localStorage.getItem('pending-payment');
+    if (!raw) return;
+    var pending;
+    try { pending = JSON.parse(raw); } catch(e) { localStorage.removeItem('pending-payment'); return; }
+    // on ignore les paiements en attente vieux de plus de 2h (abandon probable)
+    if (!pending.checkoutId || (Date.now() - pending.timestamp) > 2 * 60 * 60 * 1000) {
+      localStorage.removeItem('pending-payment');
+      return;
+    }
+    fetch('/.netlify/functions/check-checkout?id=' + encodeURIComponent(pending.checkoutId))
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (data.status === 'PAID') {
+          notifyAnais(pending.customerName, pending.customerEmail, pending.amount, pending.mode, pending.details);
+          showMsg('✓ Paiement confirmé ! Merci, à très bientôt.', 'ok');
+          localStorage.removeItem('pending-payment');
+        } else if (data.status === 'FAILED') {
+          localStorage.removeItem('pending-payment');
+        }
+        // si toujours en attente, on laisse en localStorage pour revérifier plus tard
+      })
+      .catch(function(){ /* on retentera au prochain chargement de page */ });
+  })();
 
   document.getElementById('pay-btn').addEventListener('click', function(){
     var amount = currentAmount();
@@ -311,6 +339,18 @@
         return;
       }
       document.getElementById('pay-msg-area').innerHTML = '';
+      var orderDetails = buildDetails(state.mode, giftMessage);
+      try {
+        localStorage.setItem('pending-payment', JSON.stringify({
+          checkoutId: res.data.checkoutId,
+          customerName: customerName,
+          customerEmail: customerEmail,
+          amount: amount,
+          mode: state.mode,
+          details: orderDetails,
+          timestamp: Date.now()
+        }));
+      } catch(e) { /* stockage indisponible : on continue quand même, le cas non-redirigé fonctionnera */ }
       state.cardWidget = SumUpCard.mount({
         id: 'sumup-card',
         checkoutId: res.data.checkoutId,
@@ -321,11 +361,14 @@
           if (type === 'success') {
             showMsg('✓ Paiement réussi ! Merci, à très bientôt.', 'ok');
             document.getElementById('sumup-card').innerHTML = '';
-            notifyAnais(customerName, customerEmail, amount, state.mode, giftMessage);
+            notifyAnais(customerName, customerEmail, amount, state.mode, orderDetails);
+            localStorage.removeItem('pending-payment');
           } else if (type === 'fail') {
             showMsg('Le paiement n\'a pas abouti (annulé ou session expirée). Vous pouvez réessayer.', 'err');
+            localStorage.removeItem('pending-payment');
           } else if (type === 'error') {
             showMsg('Une erreur est survenue. Vous pouvez réessayer, ou nous contacter directement.', 'err');
+            localStorage.removeItem('pending-payment');
           }
         }
       });
