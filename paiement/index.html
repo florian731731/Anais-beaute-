@@ -163,7 +163,7 @@
 <div id="pay-msg-area"></div>
 <div id="sumup-card"></div>
 
-<form name="commande-payee" data-netlify="true" method="POST" hidden>
+<form name="commande-payee" data-netlify="true" method="POST" style="display:none" aria-hidden="true">
   <input name="form-name" type="hidden" value="commande-payee"/>
   <input name="client" type="text"/>
   <input name="email" type="email"/>
@@ -280,7 +280,11 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: body
-    }).catch(function(){ /* silencieux : n'empêche jamais de confirmer le paiement au client */ });
+    }).then(function(r){
+      console.log('[notifyAnais] statut réponse:', r.status);
+    }).catch(function(err){
+      console.log('[notifyAnais] échec envoi:', err);
+    });
   }
 
   document.getElementById('pay-btn').addEventListener('click', function(){
